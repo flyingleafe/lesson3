@@ -8,8 +8,9 @@
     <string name="title_activity_results_list">ResultsList</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_loading_screen">LoadingScreen</string>
-    <string name="dialog_title">Loading...</string>
-    <string name="translating_msg">Translating query...</string>
-    <string name="search_images_msg">Searching for images...</string>
+    <string name="dialog_title">Loading…</string>
+    <string name="translating_msg">Translating query…</string>
+    <string name="search_images_msg">Searching for images…</string>
+    <string name="go_back">Back</string>
 
 </resources>

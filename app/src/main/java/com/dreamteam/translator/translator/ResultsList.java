@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -30,6 +31,10 @@ public class ResultsList extends Activity {
         resultText.setText(starter.getStringExtra(SearchField.TRANSLATION_RESULT));
     }
 
+    public void goBack(View view) {
+        Intent back = new Intent(this, SearchField.class);
+        startActivity(back);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
