@@ -1,42 +1,31 @@
 package com.dreamteam.translator.translator;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 
 
-public class SearchField extends Activity {
-
-    Button searchButton;
-    EditText searchField;
-    Intent searchIntent;
+public class LoadingScreen extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_field);
-        searchButton = (Button) findViewById(R.id.search_button);
-        searchField = (EditText) findViewById(R.id.search_field);
-        searchIntent = new Intent(this, LoadingScreen.class);
+        setContentView(R.layout.activity_loading_screen);
     }
 
-    public void sendMessage(View view) {
-        String query = searchField.getText().toString();
-        Log.i("QUERY MSG", query);
-        searchIntent.putExtra("query", query);
-        startActivity(searchIntent);
+    public void onTranslateFinished() {
+        // ...
+    }
+
+    public void onImageSearchFinished() {
+        // ...
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_top, menu);
+        getMenuInflater().inflate(R.menu.loading_screen, menu);
         return true;
     }
 
