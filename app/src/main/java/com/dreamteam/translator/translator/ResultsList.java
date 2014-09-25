@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,8 +27,14 @@ public class ResultsList extends Activity {
         starter = getIntent();
         gallery = (GridView) findViewById(R.id.gallery);
         resultText = (TextView) findViewById(R.id.result_text);
+        long start = System.currentTimeMillis();
         ArrayList<Bitmap> images = starter.getParcelableArrayListExtra(SearchField.IMAGES);
+        long stop = System.currentTimeMillis();
+        Log.i("UNPARCEL TIME", stop - start + "");
+        start = System.currentTimeMillis();
         gallery.setAdapter(new ImageAdapter(images, this));
+        stop = System.currentTimeMillis();
+        Log.i("ADAPTER TIME", stop - start + "");
         resultText.setText(starter.getStringExtra(SearchField.TRANSLATION_RESULT));
     }
 
