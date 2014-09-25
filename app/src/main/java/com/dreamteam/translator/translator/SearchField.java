@@ -3,7 +3,6 @@ package com.dreamteam.translator.translator;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -54,8 +53,8 @@ public class SearchField extends Activity {
         dialog.setMessage(getString(R.string.search_images_msg));
     }
 
-    public void onImageSearchFinished(ArrayList<Bitmap> bitmaps) {
-        searchIntent.putParcelableArrayListExtra(IMAGES, bitmaps);
+    public void onImageSearchFinished(ArrayList<String> urls) {
+        searchIntent.putStringArrayListExtra(IMAGES, urls);
         dialog.dismiss();
         startActivity(searchIntent);
     }

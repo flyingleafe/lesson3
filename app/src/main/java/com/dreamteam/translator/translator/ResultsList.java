@@ -2,7 +2,6 @@ package com.dreamteam.translator.translator;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -28,7 +27,7 @@ public class ResultsList extends Activity {
         gallery = (GridView) findViewById(R.id.gallery);
         resultText = (TextView) findViewById(R.id.result_text);
         long start = System.currentTimeMillis();
-        ArrayList<Bitmap> images = starter.getParcelableArrayListExtra(SearchField.IMAGES);
+        ArrayList<String> images = starter.getStringArrayListExtra(SearchField.IMAGES);
         long stop = System.currentTimeMillis();
         Log.i("UNPARCEL TIME", stop - start + "");
         start = System.currentTimeMillis();

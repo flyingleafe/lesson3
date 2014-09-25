@@ -1,7 +1,6 @@
 package com.dreamteam.translator.translator;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,16 +14,16 @@ import java.util.ArrayList;
  */
 public class ImageAdapter extends BaseAdapter {
 
-    private ArrayList<Bitmap> bitmaps;
+    private ArrayList<String> urls;
     private Context context;
 
-    public ImageAdapter(ArrayList<Bitmap> bitmaps, Context ctx) {
-        this.bitmaps = bitmaps;
+    public ImageAdapter(ArrayList<String> urls, Context ctx) {
+        this.urls = urls;
         context = ctx;
     }
 
     public int getCount() {
-        return bitmaps.size();
+        return urls.size();
     }
 
     public Object getItem(int position) {
@@ -46,7 +45,10 @@ public class ImageAdapter extends BaseAdapter {
         } else {
             imageView = (ImageView) convertView;
         }
-        imageView.setImageBitmap(bitmaps.get(position));
+
+        ImageLoadTask loader = new ImageLoadTask(imageView);
+        loader.execute(urls.get(position));
+
         return imageView;
     }
 }
