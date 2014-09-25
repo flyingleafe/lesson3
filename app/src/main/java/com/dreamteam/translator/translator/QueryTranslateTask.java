@@ -7,21 +7,26 @@ import android.os.AsyncTask;
  */
 public class QueryTranslateTask extends AsyncTask<String, Void, String> {
 
-    LoadingScreen screen;
+    SearchField screen;
 
-    public QueryTranslateTask(LoadingScreen screen) {
+    public QueryTranslateTask(SearchField screen) {
         this.screen = screen;
-        // do the fukken job
     }
 
     @Override
     protected String doInBackground(String... strings) {
-        return null;
+        // do the fukken job
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "OLOLOLOLO";
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-
+        screen.onTranslateFinished(s);
     }
 }

@@ -1,18 +1,33 @@
 package com.dreamteam.translator.translator;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.GridView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 public class ResultsList extends Activity {
 
+    GridView gallery;
+    TextView resultText;
+    Intent starter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_results_list);
+        starter = getIntent();
+        gallery = (GridView) findViewById(R.id.gallery);
+        resultText = (TextView) findViewById(R.id.result_text);
+        ArrayList<Bitmap> images = starter.getParcelableArrayListExtra(SearchField.IMAGES);
+        gallery.setAdapter(new ImageAdapter(images, this));
+        resultText.setText(starter.getStringExtra(SearchField.TRANSLATION_RESULT));
     }
 
 

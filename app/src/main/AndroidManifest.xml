@@ -20,10 +20,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoadingScreen"
-            android:label="@string/title_activity_loading_screen" >
-        </activity>
     </application>
 
 </manifest>

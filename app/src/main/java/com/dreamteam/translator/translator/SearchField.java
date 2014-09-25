@@ -1,7 +1,9 @@
 package com.dreamteam.translator.translator;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -10,12 +12,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+
 
 public class SearchField extends Activity {
 
-    Button searchButton;
-    EditText searchField;
-    Intent searchIntent;
+    public static final String QUERY = "query";
+    public static final String TRANSLATION_RESULT = "translationResult";
+    public static final String IMAGES = "images";
+
+    private Button searchButton;
+    private EditText searchField;
+    private Intent searchIntent;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +32,31 @@ public class SearchField extends Activity {
         setContentView(R.layout.activity_search_field);
         searchButton = (Button) findViewById(R.id.search_button);
         searchField = (EditText) findViewById(R.id.search_field);
-        searchIntent = new Intent(this, LoadingScreen.class);
+        searchIntent = new Intent(this, ResultsList.class);
+        dialog = new ProgressDialog(this);
+        dialog.setTitle(getString(R.string.dialog_title));
     }
 
     public void sendMessage(View view) {
         String query = searchField.getText().toString();
         Log.i("QUERY MSG", query);
-        searchIntent.putExtra("query", query);
+        searchIntent.putExtra(QUERY, query);
+        dialog.setMessage(getString(R.string.translating_msg));
+        dialog.show();
+        QueryTranslateTask translate = new QueryTranslateTask(this);
+        translate.execute(query);
+    }
+
+    public void onTranslateFinished(String result) {
+        searchIntent.putExtra(TRANSLATION_RESULT, result);
+        ImageSearchTask imSearch = new ImageSearchTask(this);
+        imSearch.execute(result);
+        dialog.setMessage(getString(R.string.search_images_msg));
+    }
+
+    public void onImageSearchFinished(ArrayList<Bitmap> bitmaps) {
+        searchIntent.putParcelableArrayListExtra(IMAGES, bitmaps);
+        dialog.dismiss();
         startActivity(searchIntent);
     }
 
