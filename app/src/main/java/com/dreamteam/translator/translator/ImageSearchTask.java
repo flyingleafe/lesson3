@@ -1,7 +1,7 @@
 package com.dreamteam.translator.translator;
 
+import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Base64;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
@@ -13,21 +13,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
  * Created by flyingleafe on 25.09.14.
  */
 public class ImageSearchTask extends AsyncTask<String, Void, ArrayList<String>> {
-    static String API_KEY = "JR3pM/AAwKRgqllZrxYHzVzbW8Nc4D3TYAPySHVHcWQ";
-
-    static String authStr;
-
-    static {
-        authStr = "Basic " + Base64.encodeToString((API_KEY + ":" + API_KEY).getBytes(), Base64.NO_WRAP);
-    }
+    static String API_KEY = "9c8dafc31de757b0ee0a40ca950a085b";
 
     SearchField screen;
 
@@ -37,33 +29,37 @@ public class ImageSearchTask extends AsyncTask<String, Void, ArrayList<String>> 
 
     @Override
     protected ArrayList<String> doInBackground(String... strings) {
-        String uri = "";
-        try {
-            uri = "https://api.datamarket.azure.com/Bing/Search/v1/Image?"
-                    + "$format=json&"
-                    + "$top=10&"
-                    + "Query=%27" + URLEncoder.encode(strings[0], "utf-8") + "%27";
-        } catch (UnsupportedEncodingException ignore) {
-        }
+        String uri = Uri.parse("https://www.flickr.com/services/rest")
+                .buildUpon()
+                .appendQueryParameter("api_key", API_KEY)
+                .appendQueryParameter("method", "flickr.photos.search")
+                .appendQueryParameter("format", "json")
+                .appendQueryParameter("text", strings[0])
+                .build().toString();
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet(uri);
-        request.addHeader("Authorization", authStr);
         ResponseHandler<String> responseHandler = new BasicResponseHandler();
         String responseStr;
         JSONObject responseJson;
         ArrayList<String> urls = new ArrayList<String>();
 
         try {
-            responseStr = client.execute(request, responseHandler);
+            String jsonp = client.execute(request, responseHandler);
             try {
+                responseStr = jsonp.substring(jsonp.indexOf("(") + 1, jsonp.lastIndexOf(")"));
                 responseJson = new JSONObject(responseStr);
-                JSONArray results = responseJson.getJSONObject("d").getJSONArray("results");
+                JSONArray results = responseJson.getJSONObject("photos").getJSONArray("photo");
                 int resultsCount = results.length();
 
                 for (int i = 0; i < resultsCount; i++) {
                     JSONObject result = results.getJSONObject(i);
-                    String mediaUrl = result.getString("MediaUrl");
-                    urls.add(mediaUrl);
+                    String farm = result.getString("farm");
+                    String server = result.getString("server");
+                    String id = result.getString("id");
+                    String secret = result.getString("secret");
+                    String photoUrl = "https://farm" + farm + ".staticflickr.com/" +
+                            server + "/" + id + "_" + secret + "_q.jpg";
+                    urls.add(photoUrl);
                 }
             } catch (JSONException ignore) {
             } // Bing JSON is a valid JSON
