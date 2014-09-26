@@ -2,6 +2,7 @@ package com.dreamteam.translator.translator;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -27,11 +28,16 @@ public class ResultsList extends Activity {
         gallery = (GridView) findViewById(R.id.gallery);
         resultText = (TextView) findViewById(R.id.result_text);
         long start = System.currentTimeMillis();
-        ArrayList<String> images = starter.getStringArrayListExtra(SearchField.IMAGES);
+        ArrayList<String> urls = starter.getStringArrayListExtra(SearchField.IMAGES);
+        Drawable[] cachedImages = new Drawable[urls.size()];
+        for (int i = 0; i < urls.size(); i++) {
+            ImageLoadTask loader = new ImageLoadTask(cachedImages, i);
+            loader.execute(urls.get(i));
+        }
         long stop = System.currentTimeMillis();
         Log.i("UNPARCEL TIME", stop - start + "");
         start = System.currentTimeMillis();
-        gallery.setAdapter(new ImageAdapter(images, this));
+        gallery.setAdapter(new ImageAdapter(urls, gallery, cachedImages, this));
         stop = System.currentTimeMillis();
         Log.i("ADAPTER TIME", stop - start + "");
         resultText.setText(starter.getStringExtra(SearchField.TRANSLATION_RESULT));

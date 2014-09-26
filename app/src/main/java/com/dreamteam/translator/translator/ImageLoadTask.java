@@ -2,7 +2,6 @@ package com.dreamteam.translator.translator;
 
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.widget.ImageView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,10 +11,12 @@ import java.net.URL;
  * Created by anton on 25/09/14.
  */
 public class ImageLoadTask extends AsyncTask<String, Void, Drawable> {
-    private ImageView imageView;
+    private Drawable[] cachedImages;
+    private int position;
 
-    public ImageLoadTask(ImageView imageView) {
-        this.imageView = imageView;
+    public ImageLoadTask(Drawable[] cachedImages, int position) {
+        this.cachedImages = cachedImages;
+        this.position = position;
     }
 
     @Override
@@ -34,6 +35,6 @@ public class ImageLoadTask extends AsyncTask<String, Void, Drawable> {
     @Override
     protected void onPostExecute(Drawable d) {
         super.onPostExecute(d);
-        imageView.setImageDrawable(d);
+        cachedImages[position] = d;
     }
 }
