@@ -1,10 +1,10 @@
 package com.dreamteam.translator.translator;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -37,11 +37,10 @@ public class ImageAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
 
-        if (convertView == null) {  // if it's not recycled, initialize some attributes
-            imageView = new ImageView(context);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        if (convertView == null) {
+            imageView = (SquareImageView) LayoutInflater.from(context).inflate(R.layout.grid_image, null);
         } else {
-            imageView = (ImageView) convertView;
+            imageView = (SquareImageView) convertView;
         }
 
         ImageLoadTask loader = new ImageLoadTask(imageView);
