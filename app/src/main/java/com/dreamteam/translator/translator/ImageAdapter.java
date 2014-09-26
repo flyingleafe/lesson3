@@ -41,15 +41,18 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
+        ImageView imageView = (SquareImageView) LayoutInflater.from(context).inflate(R.layout.grid_image, null);
 
-        if (convertView == null) {
-            imageView = (SquareImageView) LayoutInflater.from(context).inflate(R.layout.grid_image, null);
+        if (cachedImages[position] == null) {
+            imageView.setBackgroundResource(R.drawable.loader);
+            ImageLoadTask loader = new ImageLoadTask(imageView, cachedImages, position);
+            loader.execute(urls.get(position));
         } else {
-            imageView = (SquareImageView) convertView;
+            // TODO: looks like it doesn't work
+            // In order to get it to work, we need to find a way
+            // To update already shown subview in GridView
+            imageView.setImageDrawable(cachedImages[position]);
         }
-
-        imageView.setImageDrawable(cachedImages[position]);
 
         return imageView;
     }

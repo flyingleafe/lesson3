@@ -30,10 +30,6 @@ public class ResultsList extends Activity {
         long start = System.currentTimeMillis();
         ArrayList<String> urls = starter.getStringArrayListExtra(SearchField.IMAGES);
         Drawable[] cachedImages = new Drawable[urls.size()];
-        for (int i = 0; i < urls.size(); i++) {
-            ImageLoadTask loader = new ImageLoadTask(cachedImages, i);
-            loader.execute(urls.get(i));
-        }
         long stop = System.currentTimeMillis();
         Log.i("UNPARCEL TIME", stop - start + "");
         start = System.currentTimeMillis();
