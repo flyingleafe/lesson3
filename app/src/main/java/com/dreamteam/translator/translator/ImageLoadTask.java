@@ -46,7 +46,12 @@ public class ImageLoadTask implements Runnable {
         if (cachedImages != null && cachedImages[position] == null) {
             cachedImages[position] = initial;
         }
-        ResultsList activity = (ResultsList) ctx;
-        activity.setImageView(imageView, initial);
+        if (ctx instanceof ResultsList) {
+            ResultsList activity = (ResultsList) ctx;
+            activity.setImageView(imageView, initial);
+        } else {
+            ImagePreview activity = (ImagePreview) ctx;
+            activity.setImageView(imageView, initial);
+        }
     }
 }
