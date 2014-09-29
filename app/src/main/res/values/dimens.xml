@@ -3,4 +3,5 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="image_column_width">90dp</dimen>
+    <dimen name="greeting_text_size">30dp</dimen>
 </resources>

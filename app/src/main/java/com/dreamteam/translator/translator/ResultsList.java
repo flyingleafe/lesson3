@@ -27,39 +27,14 @@ public class ResultsList extends Activity {
         starter = getIntent();
         gallery = (GridView) findViewById(R.id.gallery);
         resultText = (TextView) findViewById(R.id.result_text);
-        long start = System.currentTimeMillis();
         ArrayList<String> urls = starter.getStringArrayListExtra(SearchField.IMAGES);
         Drawable[] cachedImages = new Drawable[urls.size()];
-        long stop = System.currentTimeMillis();
-        Log.i("UNPARCEL TIME", stop - start + "");
-        start = System.currentTimeMillis();
         gallery.setAdapter(new ImageAdapter(urls, gallery, cachedImages, this));
-        stop = System.currentTimeMillis();
-        Log.i("ADAPTER TIME", stop - start + "");
         resultText.setText(starter.getStringExtra(SearchField.TRANSLATION_RESULT));
     }
 
     public void goBack(View view) {
         Intent back = new Intent(this, SearchField.class);
         startActivity(back);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_top, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

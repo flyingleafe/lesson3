@@ -46,7 +46,9 @@ public class ImageLoadTask extends AsyncTask<String, Void, Drawable> {
     @Override
     protected void onCancelled(Drawable drawable) {
         super.onCancelled(drawable);
-        imageView.setImageResource(R.drawable.image_error);
+        Drawable error = ctx.getResources().getDrawable(R.drawable.image_error);
+        imageView.setImageDrawable(error);
+        cachedImages[position] = error;
     }
 
     @Override
