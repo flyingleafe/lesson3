@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -61,5 +62,14 @@ public class ResultsList extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setImageView(final ImageView imageView, final Drawable d) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                imageView.setImageDrawable(d);
+            }
+        });
     }
 }

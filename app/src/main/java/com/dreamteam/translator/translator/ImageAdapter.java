@@ -48,12 +48,9 @@ public class ImageAdapter extends BaseAdapter {
 
         if (cachedImages[position] == null) {
             imageView.setBackgroundResource(R.drawable.loader);
-            ImageLoadTask loader = new ImageLoadTask(imageView, cachedImages, position, context);
-            TimeoutTaskRunner.runTask(loader.execute(url), IMAGE_LOADING_TIMEOUT);
+            ImageLoadTask loader = new ImageLoadTask(imageView, cachedImages, position, context, url);
+            TimeoutTaskRunner.runTask(loader, IMAGE_LOADING_TIMEOUT);
         } else {
-            // TODO: looks like it doesn't work
-            // In order to get it to work, we need to find a way
-            // To update already shown subview in GridView
             imageView.setImageDrawable(cachedImages[position]);
         }
         imageView.setOnClickListener(new ImageClickListener(context, url));

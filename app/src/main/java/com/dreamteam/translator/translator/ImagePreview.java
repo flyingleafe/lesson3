@@ -18,8 +18,8 @@ public class ImagePreview extends Activity {
         imgView = (ImageView) findViewById(R.id.preview_container);
         String url = getIntent().getStringExtra("url");
         url = url.replace("_q.jpg", ".jpg");
-        ImageLoadTask loadTask = new ImageLoadTask(this, imgView);
-        loadTask.execute(url);
+        ImageLoadTask loadTask = new ImageLoadTask(this, imgView, url);
+        loadTask.run();
     }
 
 
