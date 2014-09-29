@@ -51,8 +51,8 @@ public class ImageAdapter extends BaseAdapter {
         }
         String url = urls.get(position);
         if (cachedImages[position] == null) {
-            ImageLoadTask loader = new ImageLoadTask(imageView, cachedImages, position, context);
-            TimeoutTaskRunner.runTask(loader.execute(url), IMAGE_LOADING_TIMEOUT);
+            ImageLoadTask loader = new ImageLoadTask(imageView, cachedImages, position, context, url);
+            TimeoutTaskRunner.runTask(loader, IMAGE_LOADING_TIMEOUT);
         } else {
             imageView.setImageDrawable(cachedImages[position]);
         }

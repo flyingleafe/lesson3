@@ -34,6 +34,7 @@ public class ImageSearchTask extends AsyncTask<String, Void, ArrayList<String>> 
                 .appendQueryParameter("api_key", API_KEY)
                 .appendQueryParameter("method", "flickr.photos.search")
                 .appendQueryParameter("format", "json")
+                .appendQueryParameter("per_page", "10")
                 .appendQueryParameter("text", strings[0])
                 .build().toString();
         HttpClient client = new DefaultHttpClient();
