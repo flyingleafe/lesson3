@@ -19,6 +19,8 @@ public class SearchField extends Activity {
     public static final String QUERY = "query";
     public static final String TRANSLATION_RESULT = "translationResult";
     public static final String IMAGES = "images";
+    public static final long TRANSLATION_TIMEOUT = 4000;
+    public static final long IMAGE_SEARCH_TIMEOUT = 4000;
 
     private Button searchButton;
     private EditText searchField;
@@ -43,13 +45,13 @@ public class SearchField extends Activity {
         dialog.setMessage(getString(R.string.translating_msg));
         dialog.show();
         QueryTranslateTask translate = new QueryTranslateTask(this);
-        translate.execute(query);
+        TimeoutTaskRunner.runTask(translate.execute(query), TRANSLATION_TIMEOUT);
     }
 
     public void onTranslateFinished(String result) {
         searchIntent.putExtra(TRANSLATION_RESULT, result);
         ImageSearchTask imSearch = new ImageSearchTask(this);
-        imSearch.execute(result);
+        TimeoutTaskRunner.runTask(imSearch.execute(result), IMAGE_SEARCH_TIMEOUT);
         dialog.setMessage(getString(R.string.search_images_msg));
     }
 

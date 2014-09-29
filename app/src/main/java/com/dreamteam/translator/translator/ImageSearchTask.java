@@ -62,7 +62,7 @@ public class ImageSearchTask extends AsyncTask<String, Void, ArrayList<String>> 
                     urls.add(photoUrl);
                 }
             } catch (JSONException ignore) {
-            } // Bing JSON is a valid JSON
+            } // Flickr JSON is a valid JSON
         } catch (IOException e) {
             // TODO: some error reporting would be nice
             e.printStackTrace();

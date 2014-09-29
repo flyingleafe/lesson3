@@ -1,5 +1,6 @@
 package com.dreamteam.translator.translator;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.widget.ImageView;
@@ -15,11 +16,13 @@ public class ImageLoadTask extends AsyncTask<String, Void, Drawable> {
     private ImageView imageView;
     private Drawable[] cachedImages;
     private int position;
+    Context ctx;
 
-    public ImageLoadTask(ImageView imageView, Drawable[] cachedImages, int position) {
+    public ImageLoadTask(ImageView imageView, Drawable[] cachedImages, int position, Context ctx) {
         this.imageView = imageView;
         this.cachedImages = cachedImages;
         this.position = position;
+        this.ctx = ctx;
     }
 
     @Override
@@ -28,11 +31,17 @@ public class ImageLoadTask extends AsyncTask<String, Void, Drawable> {
 
         try {
             InputStream is = (InputStream) new URL(url).getContent();
-            return Drawable.createFromStream(is, "");
+            Drawable initial = Drawable.createFromStream(is, "");
+            return initial;
         } catch (IOException e) {
-            // TODO: maybe inform user on error?
-            return null;
+            return ctx.getResources().getDrawable(R.drawable.image_error);
         }
+    }
+
+    @Override
+    protected void onCancelled(Drawable drawable) {
+        super.onCancelled(drawable);
+        imageView.setImageResource(R.drawable.image_error);
     }
 
     @Override

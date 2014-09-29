@@ -16,6 +16,8 @@ import java.util.ArrayList;
  */
 public class ImageAdapter extends BaseAdapter {
 
+    public static final long IMAGE_LOADING_TIMEOUT = 4000;
+
     private GridView gallery;
     private ArrayList<String> urls;
     private Drawable[] cachedImages;
@@ -45,8 +47,8 @@ public class ImageAdapter extends BaseAdapter {
 
         if (cachedImages[position] == null) {
             imageView.setBackgroundResource(R.drawable.loader);
-            ImageLoadTask loader = new ImageLoadTask(imageView, cachedImages, position);
-            loader.execute(urls.get(position));
+            ImageLoadTask loader = new ImageLoadTask(imageView, cachedImages, position, context);
+            TimeoutTaskRunner.runTask(loader.execute(urls.get(position)), IMAGE_LOADING_TIMEOUT);
         } else {
             // TODO: looks like it doesn't work
             // In order to get it to work, we need to find a way
