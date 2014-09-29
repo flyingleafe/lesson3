@@ -15,7 +15,7 @@ import java.net.URL;
 public class ImageLoadTask extends AsyncTask<String, Void, Drawable> {
     private ImageView imageView;
     private Drawable[] cachedImages;
-    private int position;
+    private Integer position;
     Context ctx;
 
     public ImageLoadTask(ImageView imageView, Drawable[] cachedImages, int position, Context ctx) {
@@ -23,6 +23,11 @@ public class ImageLoadTask extends AsyncTask<String, Void, Drawable> {
         this.cachedImages = cachedImages;
         this.position = position;
         this.ctx = ctx;
+    }
+
+    public ImageLoadTask(Context ctx, ImageView imageView) {
+        this.ctx = ctx;
+        this.imageView = imageView;
     }
 
     @Override
@@ -47,7 +52,7 @@ public class ImageLoadTask extends AsyncTask<String, Void, Drawable> {
     @Override
     protected void onPostExecute(Drawable d) {
         super.onPostExecute(d);
-        if (cachedImages[position] == null) {
+        if (cachedImages != null && cachedImages[position] == null) {
             cachedImages[position] = d;
         }
         imageView.setImageDrawable(d);

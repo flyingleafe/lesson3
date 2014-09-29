@@ -54,6 +54,12 @@ public class QueryTranslateTask extends AsyncTask<String, Void, String> {
     }
 
     @Override
+    protected void onCancelled() {
+        super.onCancelled();
+        screen.onTranslateCancelled();
+    }
+
+    @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         screen.onTranslateFinished(s);

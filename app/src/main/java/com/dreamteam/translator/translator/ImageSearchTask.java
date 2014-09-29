@@ -72,6 +72,12 @@ public class ImageSearchTask extends AsyncTask<String, Void, ArrayList<String>> 
     }
 
     @Override
+    protected void onCancelled() {
+        super.onCancelled();
+        screen.onImageSearchCancelled();
+    }
+
+    @Override
     protected void onPostExecute(ArrayList<String> urls) {
         super.onPostExecute(urls);
         screen.onImageSearchFinished(urls);

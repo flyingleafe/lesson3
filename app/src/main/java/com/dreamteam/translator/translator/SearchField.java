@@ -1,9 +1,12 @@
 package com.dreamteam.translator.translator;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.Notification;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,10 +58,20 @@ public class SearchField extends Activity {
         dialog.setMessage(getString(R.string.search_images_msg));
     }
 
+    public void onTranslateCancelled() {
+        dialog.dismiss();
+        // TODO: show error message
+    }
+
     public void onImageSearchFinished(ArrayList<String> urls) {
         searchIntent.putStringArrayListExtra(IMAGES, urls);
         dialog.dismiss();
         startActivity(searchIntent);
+    }
+
+    public void onImageSearchCancelled() {
+        dialog.dismiss();
+        // TODO: show error message
     }
 
     @Override

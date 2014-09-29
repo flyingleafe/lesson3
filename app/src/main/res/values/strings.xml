@@ -12,5 +12,6 @@
     <string name="translating_msg">Translating query…</string>
     <string name="search_images_msg">Searching for images…</string>
     <string name="go_back">Back</string>
+    <string name="title_activity_image_preview">ImagePreview</string>
 
 </resources>
