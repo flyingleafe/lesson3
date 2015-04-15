@@ -38,4 +38,13 @@ public class ResultsList extends Activity {
         Intent back = new Intent(this, SearchField.class);
         startActivity(back);
     }
+
+    public void setImageView(final ImageView imageView, final Drawable d) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                imageView.setImageDrawable(d);
+            }
+        });
+    }
 }

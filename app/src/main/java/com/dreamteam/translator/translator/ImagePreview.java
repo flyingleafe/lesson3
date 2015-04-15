@@ -23,4 +23,13 @@ public class ImagePreview extends Activity {
         ImageLoadTask loadTask = new ImageLoadTask(this, imgView, url);
         TimeoutTaskRunner.runTask(loadTask, IMAGE_PREVIEW_TIMEOUT);
     }
+
+    public void setImageView(final ImageView imageView, final Drawable d) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                imageView.setImageDrawable(d);
+            }
+        });
+    }
 }
